@@ -1,0 +1,124 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="{% static 'img/logo.png' %}" type="image/png" sizes="16x16">
+    <title>{% block title %}Laboratório de Biologia Molecular e Computacional de Fungos{% endblock %}</title>
+    <style>header.masthead {background-image: url("{% static 'img/background.1.2.jpg' %}");}</style>
+    {% include 'base/css.html' %}
+    {% block cssplus %}{% endblock %}
+</head>
+<body id="page-top">
+    {% include 'base/navvar.html' %}
+
+    {% block header %}
+    {% include 'base/header.html' %}
+    {% endblock header %}
+
+    {% block content %}
+
+    <!-- About -->
+    {% block content_about %}
+    {% endblock content_about %}
+
+    <!-- News -->
+    {% block content_news %}
+    {% endblock content_news %}
+
+    <!-- Research -->
+    {% block content_research %}
+    <section id="section_research">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <h2 class="section-heading text-uppercase">Pesquisa</h2>
+                    <h3 class="section-subheading text-muted">Estudo da biologia de fungos, ao nível de organização molecular, através de métodos experimentais e computacionais para análise de sequências de DNA, RNA e proteínas, em pequena e larga escalas.</h3>
+                </div>
+            </div>
+            <div class="row text-center">
+                <div class="col-md-4">
+                    <a href="{% url 'research_app:url_projects' %}">
+                        <span class="fa-stack fa-4x links-hover">
+                            <i class="fas fa-circle fa-stack-2x text-primary"></i>
+                            <i class="fas fa-flask fa-stack-1x fa-inverse"></i>
+                        </span>
+                    </a>
+                    <h4 class="service-heading">Projetos</h4>
+                    <p class="text-muted">Projetos desenvolvidos pelo LBMCF ou em parcerias nacionais e internacionais, os quais tem uma grande importancia tecnológica, biotecnológica, social e de desenvolvimento principalmente para o Brasil.</p>
+                </div>
+                <div class="col-md-4">
+                    <a href="{% url 'research_app:url_protocols' %}">
+                        <span class="fa-stack fa-4x links-hover">
+                            <i class="fas fa-circle fa-stack-2x text-primary"></i>
+                            <i class="fas fa-check-double fa-stack-1x fa-inverse"></i>
+                        </span>
+                    </a>
+                    <h4 class="service-heading">Protocolos</h4>
+                    <p class="text-muted">Técnicas, metodologías e fluxos de trabalho seguidos pelos pesquisadores do LBMCF, que podem servir de guia para outros pesquisadores.</p>
+                </div>
+                <div class="col-md-4">
+                    <a href="{% url 'research_app:url_files' %}">
+                        <span class="fa-stack fa-4x links-hover">
+                            <i class="fas fa-circle fa-stack-2x text-primary"></i>
+                            <i class="fas fa-folder-open fa-stack-1x fa-inverse"></i>
+                        </span>
+                    </a>
+                    <h4 class="service-heading">Arquivos</h4>
+                    <p class="text-muted">Catálogo de documentos utilizados nas pesquisas feitas.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    {% endblock content_research %}
+
+    <!-- Team -->
+    {% block content_team %}
+    {% endblock content_team %}
+
+    <!-- Papers -->
+    {% block content_papers %}
+    {% endblock content_papers %}
+
+    <!-- Partnerships -->
+    {% block content_partnerships %}
+    {% endblock content_partnerships %}
+
+    <!-- Innovation -->
+    <!--
+    {% block content_innovation %}
+    <section id="section_innovation">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <h2 class="section-heading text-uppercase">Inovação</h2>
+                    <h3 class="section-subheading text-muted">Text</h3>
+                </div>
+            </div>
+        </div>
+    </section>
+    {% endblock content_innovation %}
+    -->
+
+    <!-- Links -->
+    {% block content_links %}
+    {% endblock content_links %}
+
+    <!-- Contact -->
+    {% block content_contact %}
+    {% endblock content_contact %}
+
+    {% endblock content %}
+
+    <p id="back-top">
+        <a href="#top"><i class="fa fa-angle-up"></i></a>
+    </p>
+
+    {% include 'base/footer.html' %}
+    {% include 'base/javascript.html' %}
+    {% block javascriptplus %}{% endblock %}
+</body>
+</html>

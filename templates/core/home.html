@@ -1,0 +1,575 @@
+{% extends 'base/base.html' %}
+{% load static %}
+{% block title %}LBMCF | {{ block.super }}{% endblock %}
+
+<!-- About -->
+{% block content_about %}
+    <section id="section_home">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="text-center">
+                        <h2 class="section-heading text-uppercase">
+                            LBMCF
+                        </h2>
+                        <h3 class="section-subheading text-muted">
+                            Laboratório de Biologia Molecular e Computacional de Fungos
+                        </h3>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-9">
+                            <div class="text-justify">
+                                <p class="text-muted">
+                                    {{ context_about.description|safe }}
+                                    <!--
+                                    {% if user.is_authenticated %}
+                                        <div class="text-left">
+                                            <!- -'admin:App_Model_Action' obj.id- ->
+                                            <a href="{% url 'admin:about_about_change' context_about.id %}" target="_blank" rel="noopener noreferrer">
+                                                Edit
+                                            </a>
+                                        </div>
+                                    {% endif %}
+                                    -->
+                                    {% if request.user.is_staff %}
+                                        <div class="text-left">
+                                            <a href="{% url 'about_app:url_about_update' context_about.id %}">
+                                                Edit
+                                            </a>
+                                        </div>
+                                    {% endif %}
+                                </p>
+                            </div>
+                        </div>
+                        <div class="col-md-3 text-center">
+                            <img src="{% static 'img/logo.png' %}" class="img-about">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock content_about %}
+
+<!-- News -->
+{% block content_news %}
+    <section id="section_news" class="bg-light">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="text-center">
+                        <h2 class="section-heading text-uppercase">
+                            NOTÍCIAS
+                        </h2>
+                        <h3 class="section-subheading text-muted">
+                            Eventos nacionais e internacionais onde os pesquisadores do LBMCF participaram
+                        </h3>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                {% for news in context_news %}
+                <div class="col-md-3">
+                    <div class="team-item">
+                        <div class="team-image">
+                            <a href="{% url 'news_app:url_newsdetail' news.id %}">
+                                <img src="{{ news.logo.url }}" class="img-responsive">
+                            </a>
+                        </div>
+                        <div class="team-text">
+                            <h3>{{ news.title }}</h3>
+                            <div class="team-location">{{ news.location }}</div>
+                            <div class="team-position">– {{ news.date }} –</div>
+                            <p>{{ news.description|slice:"0:110" }}...</p>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+{% endblock content_news %}
+
+<!-- Team -->
+{% block content_team %}
+    <section id="section_team" class="bg-light footer-bottom">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <h2 class="section-heading text-uppercase">Equipe</h2>
+                    <h3 class="section-subheading text-muted">Pesquisadores com diversos perfis atuam no laboratório, saiba um pouco mais deles...</h3>
+                </div>
+            </div>
+            <!--Coordinator-->
+            <div class="row">
+                {% for member in context_members_coordinator %}
+                    {% if context_members_coordinator.count == 1 %}
+                        {% with class_style="col-sm-12" %}
+                        <div class="{{ class_style }}">
+                        {% endwith %}
+                    {% else %}
+                        {% if context_members_coordinator.count == 2 %}
+                            {% with class_style="col-sm-6" %}
+                            <div class="{{ class_style }}">
+                            {% endwith %}
+                        {% else %}
+                            {% if context_members_coordinator.count == 3 %}
+                                {% with class_style="col-sm-4" %}
+                                <div class="{{ class_style }}">
+                                {% endwith %}
+                            {% else %}
+                                {% if context_members_coordinator.count == 4 %}
+                                    {% with class_style="col-sm-3" %}
+                                    <div class="{{ class_style }}">
+                                    {% endwith %}
+                                {% else %}
+                                    <div>
+                                {% endif %}
+                            {% endif %}
+                        {% endif %}
+                    {% endif %}
+                    <!--<div class="col-sm-12">-->
+                        <div class="team-member">
+                            <a href="#modal_information" class="open-modal_information" data-toggle="modal" data-name="{{ member }}" data-biography="{{ member.biography }}" data-title="Biography" data-icon="fas fa-user-graduate"><!--fas fa-address-card-->
+                                <img class="mx-auto rounded-circle" src="{{ member.image.url }}" alt="">
+                            </a>
+                            <h5>
+                                {{ member.degree.name }} {{ member }}
+                                {% with 'img/flags/countries/'|add:member.country.code|lower|add:'.png' as image_static %}
+                                    <img src="{% static image_static %}" class="img-flag-team">
+                                {% endwith %}
+                            </h5>
+                            <p class="text-muted">{{ member.role }}</p>
+                            <ul class="list-inline social-buttons">
+                                <li class="list-inline-item">
+                                    <a href="#modal_information" class="open-modal_information" data-toggle="modal" data-phone="" data-title="Phone" data-icon="fas fa-phone">
+                                        <i class="fas fa-phone"></i>
+                                    </a>
+                                </li>
+                                <li class="list-inline-item">
+                                    <a href="#modal_information" class="open-modal_information" data-toggle="modal" data-email="{{ member.email }}" data-title="E-mail" data-icon="fas fa-envelope">
+                                        <i class="fas fa-envelope"></i>
+                                    </a>
+                                </li>
+                                <li class="list-inline-item">
+                                {% if member.linkedin %}
+                                    <a href="{{ member.linkedin }}" target="_blank" rel="noopener noreferrer">
+                                        <i class="fab fa-linkedin-in"></i>
+                                    </a>
+                                {% else %}
+                                    <a href="#" class="disabled">
+                                        <i class="fab fa-linkedin-in"></i>
+                                    </a>
+                                {% endif %}
+                                </li>
+                                <li class="list-inline-item lattes-buttons-alter">
+                                    <a href="{{ member.lattes }}" target="_blank" rel="noopener noreferrer">
+                                        <img src="{% static 'img/lattes-white.png' %}">
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+            <!--Members-->
+            <div class="row">
+                {% for member in context_members %}
+                    <div class="col-md-3 col-sm-6">
+                        <div class="team-member">
+                            <a href="#modal_information" class="open-modal_information" data-toggle="modal" data-name="{{ member }}" data-biography="{{ member.biography }}" data-title="Biography" data-icon="fas fa-user-graduate"><!--fas fa-address-card-->
+                                <img class="mx-auto rounded-circle" src="{{ member.image.url }}" alt="">
+                            </a>
+                            <h5>
+                                {{ member }}
+                                {% with 'img/flags/countries/'|add:member.country.code|lower|add:'.png' as image_static %}
+                                    <img src="{% static image_static %}" class="img-flag-team">
+                                {% endwith %}
+                            </h5>
+                            <p class="text-muted">{{ member.role }}</p>
+                            <ul class="list-inline social-buttons">
+                                <li class="list-inline-item">
+                                    <a href="#modal_information" class="open-modal_information" data-toggle="modal" data-email="{{ member.email }}" data-title="E-mail" data-icon="fas fa-envelope">
+                                        <i class="fas fa-envelope"></i>
+                                    </a>
+                                </li>
+                                <!--
+                                <li class="list-inline-item">
+                                    <a href="#modal_information" class="open-modal_information" data-toggle="modal" data-mobile="{{ member.phone }}" data-title="Mobile" data-icon="fas fa-mobile-alt">
+                                        <i class="fas fa-mobile-alt"></i>< !--fab fa-researchgate-- >
+                                    </a>
+                                </li>
+                                -->
+                                <li class="list-inline-item">
+                                {% if member.linkedin %}
+                                    <a href="{{ member.linkedin }}" target="_blank" rel="noopener noreferrer">
+                                        <i class="fab fa-linkedin-in"></i>
+                                    </a>
+                                {% else %}
+                                    <a href="#" class="disabled">
+                                        <i class="fab fa-linkedin-in"></i>
+                                    </a>
+                                {% endif %}
+                                </li>
+                                <li class="list-inline-item lattes-buttons-alter">
+                                    <a href="{{ member.lattes }}" target="_blank" rel="noopener noreferrer">
+                                        <img src="{% static 'img/lattes-white.png' %}">
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+            <div class="row">
+                <div class="col-lg-8 mx-auto text-center">
+                    <p class="large text-muted">Seja parte de nosso equipe, aguardamos você...</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Modal -->
+    <div class="modal fade" id="modal_information" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document"><!--modal-dialog-centered-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title text-uppercase" id="myModalLabel">
+                        <div id="infotitle"></div>
+                    </h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="text-center">
+                        <ul class="list-inline social-buttons">
+                            <li class="list-inline-item">
+                                <div class="row">
+                                    <a href="#" class="disabled">
+                                        <i id="infoicon" class="fas fa-info"></i>
+                                    </a>
+                                    <div class="g-margin-t-10--xs g-margin-l-10--xs">
+                                        <div id="information"></div>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                        <div class="g-margin-t-10--xs g-margin-l-10--xs">
+                            <div id="biography"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <!--btn-default-->
+                    <button class="btn btn-primary mx-auto" data-dismiss="modal" type="button">
+                        <i class="fas fa-times"></i>&nbsp;Close
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock content_team %}
+
+<!-- Papers -->
+{% block content_papers %}
+    <section id="section_paper">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <h2 class="section-heading text-uppercase">Publicações</h2>
+                    <h3 class="section-subheading text-muted">Revise as pesquisas realializadas pelo laboratório com as parcerias.</h3>
+                </div>
+            </div>
+            <div class="row text-center">
+                <div id="recipeCarousel" class="carousel slide w-100" data-ride="carousel">
+                    <div class="carousel-inner w-100" role="listbox">
+                        {% for key, hash in context_papers_year.items %}
+                            {% if key == 0 %}
+                            <div class="carousel-item row no-gutters active">
+                            {% else %}
+                            <div class="carousel-item row no-gutters">
+                            {% endif %}
+                            {% for year, count in hash.items %}
+                                <div class="col-3 float-left ot-portfolio-item">
+                                    <figure class="effect-bubba">
+                                        <img src="http://placehold.it/350x250/222/fff?text=&nbsp;" class="embed-responsive"/>
+                                        <figcaption>
+                                            <h2>{{ year }}</h2>
+                                            <p>Ver pesquisas ({{ count }})</p>
+                                            {% if year == 'TODOS' %}
+                                                <a href="{% url 'publications_app:url_papers' %}"></a>
+                                            {% else %}
+                                                <a href="{% url 'publications_app:url_papersyear' year %}"></a>
+                                            {% endif %}
+                                        </figcaption>
+                                    </figure>
+                                </div>
+                            {% endfor %}
+                            </div>
+                        {% endfor %}
+                    </div>
+                    <ol class="carousel-indicators" style="background-color:white;">
+                    {% for key, hash in context_papers_year.items %}
+                        {% if key == 0 %}
+                        <li data-target="#recipeCarousel" data-slide-to="{{ key }}" class="active"></li>
+                        {% else %}
+                        <li data-target="#recipeCarousel" data-slide-to="{{ key }}"></li>
+                        {% endif %}
+                    {% endfor %}
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock content_papers %}
+
+<!-- Partnerships -->
+{% block content_partnerships %}
+    <section id="portfolio" class="bg-light">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <h2 class="section-heading text-uppercase">Parcerias</h2>
+                    <h3 class="section-subheading text-muted">Nacionais / Internacionais</h3>
+                </div>
+            </div>
+            <div class="row">
+                <!--Brazil-->
+                {% for state in context_partnerships_national %}
+                    <div class="col-md-3 col-sm-6 portfolio-item">
+                        <a data-toggle="modal" class="portfolio-link" href="#modal_partnership{{ state.institution__state__id }}">
+                            <div class="portfolio-hover">
+                                <div class="portfolio-hover-content">
+                                    <i class="fas fa-plus fa-3x"></i>
+                                </div>
+                            </div>
+                            <img class="img-fluid" src="/media/{{ state.institution__state__image }}">
+                        </a>
+                        <div class="portfolio-caption">
+                            <h4>
+                                {{ state.institution__state__name }}    
+                            </h4>
+                        </div>
+                    </div>
+                {% endfor %}
+                <!--International-->
+                {% if context_partnerships_international.count > 0 %}
+                    <div class="col-md-3 col-sm-6 portfolio-item">
+                        <a data-toggle="modal" class="portfolio-link" href="#modal_partnership0">
+                            <div class="portfolio-hover">
+                                <div class="portfolio-hover-content">
+                                    <i class="fas fa-plus fa-3x"></i>
+                                </div>
+                            </div>
+                            <img class="img-fluid" src="{% static 'img/flags/world_blue.jpg' %}">
+                        </a>
+                        <div class="portfolio-caption">
+                            <h4>
+                                Internacionais
+                            </h4>
+                        </div>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </section>
+
+    <!-- Modals -->
+    {% for state_id, hash_partnerships_detail in context_partnerships_detail.items %}
+        <!-- Modal #{{ state_id }} | {% if state_id != 0 %}{{ hash_partnerships_detail.state_name }}{% else %}International{% endif %} -->
+        <div class="portfolio-modal modal fade" id="modal_partnership{{ state_id }}" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="close-modal" data-dismiss="modal">
+                        <div class="lr">
+                            <div class="rl"></div>
+                        </div>
+                    </div>
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-lg-8 mx-auto">
+                                <div class="modal-body">
+                                    <h2 class="text-uppercase">
+                                        {% if state_id != 0 %}
+                                            {{ hash_partnerships_detail.state_name }} ({{ hash_partnerships_detail.state_code }})
+                                        {% else %}
+                                            International
+                                        {% endif %}
+                                    </h2>
+                                    <p class="item-intro text-muted">
+                                        {% if state_id != 0 %}
+                                            {{ hash_partnerships_detail.country_name }}
+                                        {% else %}
+                                            World
+                                        {% endif %}
+                                    </p>
+                                    <!-- Brazil -->
+                                    {% if state_id != 0 %}
+                                        {% for institutions_id, hash_partnerships in hash_partnerships_detail.data.items %}
+                                        <ul class="list-inline social-buttons text-left">
+                                            <div class="item-intro-subtitle1 text-muted">
+                                                {{ hash_partnerships.institution }} ({{ hash_partnerships.institution_short_name }})
+                                            </div>
+                                            <li class="list-inline-item lattes-buttons-modal">
+                                                {% for item, partnership in hash_partnerships.data.items %}
+                                                    <div class="row pb-2">
+                                                        <div>
+                                                            {% if partnership.link %}
+                                                                <a href="{{ partnership.link }}" target="_blank" rel="noopener noreferrer" class="text-center">
+                                                                    <img src="{% static 'img/lattes-white.png' %}">
+                                                                </a>
+                                                            {% else %}
+                                                                <a href="#" class="disabled text-center">
+                                                                    <img src="{% static 'img/lattes-white.png' %}">
+                                                                </a>
+                                                            {% endif %}
+                                                        </div>
+                                                        <div class="g-margin-t-10--xs g-margin-l-10--xs">
+                                                            {{ partnership.degree }} {{ partnership.partner }}
+                                                        </div>
+                                                        <div class="g-margin-t-10--xs g-margin-l-10--xs">
+                                                            {% with 'img/flags/countries/'|add:partnership.country_code|lower|add:'.png' as image_static %}
+                                                                <img src="{% static image_static %}" class="img-flag-partner">
+                                                            {% endwith %}
+                                                        </div>
+                                                    </div>
+                                                {% endfor %}
+                                            </li>
+                                        </ul>
+                                        {% if not forloop.last %}
+                                            <hr class="hr-separator">
+                                        {% endif %}
+                                        {% endfor %}
+                                    {% else %}
+                                    <!-- International -->
+                                        {% for country_id, hash_countries in hash_partnerships_detail.items %}
+                                        <ul class="list-inline social-buttons text-left">
+                                            <li class="list-inline-item">
+                                                <div class="item-intro-subtitle2 text-muted">
+                                                    Country: {{ hash_countries.country_name }}
+                                                </div>
+                                                {% for item, hash_partnership in hash_countries.data.items %}
+                                                    <div class="item-intro-subtitle3 text-muted">
+                                                        {{ hash_partnership.institution }} ({{ hash_partnership.institution_short_name }})
+                                                    </div>
+                                                    {% for code, partnership in hash_partnership.data.items %}
+                                                        <div class="row pb-2">
+                                                            <div>
+                                                                {% if partnership.link %}
+                                                                    <a href="{{ partnership.link }}" target="_blank" rel="noopener noreferrer" class="text-center">
+                                                                        <i class="fab fa-cloudversify"></i><!--fa-link|fa-cloud-->
+                                                                    </a>
+                                                                {% else %}
+                                                                    <a href="#" class="disabled text-center">
+                                                                        <i class="fab fa-cloudversify"></i>
+                                                                    </a>
+                                                                {% endif %}
+                                                            </div>
+                                                            <div class="g-margin-t-10--xs g-margin-l-10--xs">
+                                                                {{ partnership.degree }} {{ partnership.partner }}
+                                                            </div>
+                                                            <div class="g-margin-t-10--xs g-margin-l-10--xs">
+                                                                {% with 'img/flags/countries/'|add:partnership.country_code|lower|add:'.png' as image_static %}
+                                                                    <img src="{% static image_static %}" class="img-flag-partner">
+                                                                {% endwith %}
+                                                            </div>
+                                                        </div>
+                                                    {% endfor %}
+                                                {% endfor %}
+                                                {% if not forloop.last %}
+                                                    <hr class="hr-separator">
+                                                {% endif %}
+                                            </li>
+                                        </ul>
+                                        {% endfor %}
+                                    {% endif %}
+                                    <button class="btn btn-primary" data-dismiss="modal" type="button">
+                                        <i class="fas fa-times"></i>&nbsp;Close
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+{% endblock content_partnerships %}
+
+<!-- Links -->
+{% block content_links %}
+    <section class="py-5">
+        <div class="container">
+            <div class="row">
+                {% for item, link in context_links.items %}
+                    {% if forloop.first %}
+                        <div class="col-md-12">
+                            <hr>&nbsp;
+                        </div>
+                    {% endif %}
+                    {% if link.weight == 0 %}
+                        <div class="col-md-2 col-sm-6 div-link">
+                            <a href="{{ link.link }}" target="_blank" rel="noopener noreferrer">
+                                <img class="img-link1" src="{{ link.logo.url }}" alt="{{ link.name }}">
+                            </a>
+                        </div>
+                    {% else %}
+                        <div class="col-md-{{ link.weight }} col-sm-6">
+                        </div>
+                    {% endif %}
+                    {% if forloop.counter|divisibleby:6 and forloop.last == False %}
+                        <div class="col-md-12">
+                            &nbsp;
+                        </div>
+                    {% endif %}
+                    {% if forloop.last %}
+                        <div class="col-md-12">
+                        </div>
+                    {% endif %}
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+{% endblock content_links %}
+
+{% block javascriptplus %}
+    <script>
+        //Team
+        $(document).on("click", ".open-modal_information", function () {
+            var _not_registered = 'Not registered';
+            var _title = $(this).data('title');
+            var _icon = $(this).data('icon');
+            var _phone = $(this).data('phone');
+            var _mobile = $(this).data('mobile');
+            var _email = $(this).data('email');
+            var _name = $(this).data('name');
+            var _biography = $(this).data('biography');
+
+            $(".modal-body #biography").text('');
+
+            if (_phone){
+                $(".modal-body #information").text(_phone);
+            } else {
+                if (_mobile){
+                    $(".modal-body #information").text(_mobile);
+                } else {
+                    if (_email){
+                        $(".modal-body #information").text(_email);
+                    } else {
+                        if (_biography){
+                            $(".modal-body #information").text(_name);
+                            $(".modal-body #biography").text(_biography);
+                        } else {
+                            $(".modal-body #information").text(_not_registered);
+                        }
+                    }
+                }
+            }
+
+            $(".modal-header #infotitle").text(_title);
+            $(".modal-body #infoicon").attr('class', '');
+            $(".modal-body #infoicon").attr('class', _icon);
+        });
+    </script>
+{% endblock javascriptplus %}
