@@ -21,12 +21,14 @@ from django.conf import settings
 
 urlpatterns = [
     path('', include(('apps.core.urls', 'core_app'), namespace = 'core_app')),
+    path('members/', include(('apps.members.urls', 'members_app'), namespace = 'members_app')),
     path('research/', include(('apps.research.urls', 'research_app'), namespace = 'research_app')),
     path('publications/', include(('apps.publications.urls', 'publications_app'), namespace = 'publications_app')),
     path('legal/', include(('apps.legal.urls', 'legal_app'), namespace = 'legal_app')),
     path('contact/', include(('apps.contact.urls', 'contact_app'), namespace = 'contact_app')),
     path('about/', include(('apps.about.urls', 'about_app'), namespace = 'about_app')),
     path('news/', include(('apps.news.urls', 'news_app'), namespace = 'news_app')),
+    path('innovation/', include(('apps.innovation.urls', 'innovation_app'), namespace = 'innovation_app')),
     path('profiles/', include(profiles_patterns, namespace = 'profiles_app')),
     path('messenger/', include(messenger_patterns, namespace = 'messenger_app')),
     path('admin/', admin.site.urls),

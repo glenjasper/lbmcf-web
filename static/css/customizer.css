@@ -50,7 +50,7 @@ and (max-width : 480px) {
 }
 
 /*----------------------
-2. NavVar
+2. NavBar
 ----------------------*/
 
 .bs-dark .dropdown-menu {
@@ -102,12 +102,12 @@ and (max-width : 480px) {
 ----------------------*/
 
 figure {
-	position: relative;
+    position: relative;
     overflow: hidden;
     margin: 15px 1%;
     background: #726FB9;
     text-align: center;
-    cursor: pointer;	
+    cursor: pointer;    
 }
 
 figcaption {
@@ -115,7 +115,7 @@ figcaption {
     top: 0;
     left: 0;
     width: 100%;
-    height: 100%;	
+    height: 100%;    
 }
 
 .ot-portfolio-item figure figcaption > a {
@@ -134,45 +134,45 @@ figcaption {
 }
 
 figure.effect-bubba {
-	background: #000;
-	margin-bottom: 30px;
+    background: #000;
+    margin-bottom: 30px;
 }
 
 figure.effect-bubba img {
-	opacity: 0.8;
-	-webkit-transition: opacity 0.35s;
-	transition: opacity 0.35s;
+    opacity: 0.8;
+    -webkit-transition: opacity 0.35s;
+    transition: opacity 0.35s;
 }
 
 figure.effect-bubba:hover img {
-	opacity: 0.4;
+    opacity: 0.4;
 }
 
 figure.effect-bubba figcaption::before,
 figure.effect-bubba figcaption::after {
-	position: absolute;
-	top: 30px;
-	right: 30px;
-	bottom: 30px;
-	left: 30px;
-	content: '';
-	opacity: 0;
-	-webkit-transition: opacity 0.35s, -webkit-transform 0.35s;
-	transition: opacity 0.35s, transform 0.35s;
+    position: absolute;
+    top: 30px;
+    right: 30px;
+    bottom: 30px;
+    left: 30px;
+    content: '';
+    opacity: 0;
+    -webkit-transition: opacity 0.35s, -webkit-transform 0.35s;
+    transition: opacity 0.35s, transform 0.35s;
 }
 
 figure.effect-bubba figcaption::before {
-	border-top: 1px solid #fff;
-	border-bottom: 1px solid #fff;
-	-webkit-transform: scale(0,1);
-	transform: scale(0,1);
+    border-top: 1px solid #fff;
+    border-bottom: 1px solid #fff;
+    -webkit-transform: scale(0,1);
+    transform: scale(0,1);
 }
 
 figure.effect-bubba figcaption::after {
-	border-right: 1px solid #fff;
-	border-left: 1px solid #fff;
-	-webkit-transform: scale(1,0);
-	transform: scale(1,0);
+    border-right: 1px solid #fff;
+    border-left: 1px solid #fff;
+    -webkit-transform: scale(1,0);
+    transform: scale(1,0);
 }
 
 figure.effect-bubba h2 {
@@ -180,37 +180,37 @@ figure.effect-bubba h2 {
     font-size: 32px;
     font-weight: 500;
     text-transform: uppercase;
-	padding-top: 27%; /*30%*/
-	-webkit-transition: -webkit-transform 0.35s;
-	transition: transform 0.35s;
-	-webkit-transform: translate3d(0,-15px,0);
-	transform: translate3d(0,-15px,0);
+    padding-top: 27%; /*30%*/
+    -webkit-transition: -webkit-transform 0.35s;
+    transition: transform 0.35s;
+    -webkit-transform: translate3d(0,-15px,0);
+    transform: translate3d(0,-15px,0);
 }
 
 figure.effect-bubba p {
     color: #fff;
     font-size: 13px;
     font-weight: 500;
-	padding: 5px 2.5em; /*20px*/
-	opacity: 0;
-	-webkit-transition: opacity 0.35s, -webkit-transform 0.35s;
-	transition: opacity 0.35s, transform 0.35s;
-	-webkit-transform: translate3d(0,15px,0);
-	transform: translate3d(0,15px,0);
+    padding: 5px 2.5em; /*20px*/
+    opacity: 0;
+    -webkit-transition: opacity 0.35s, -webkit-transform 0.35s;
+    transition: opacity 0.35s, transform 0.35s;
+    -webkit-transform: translate3d(0,15px,0);
+    transform: translate3d(0,15px,0);
 }
 
 figure.effect-bubba:hover figcaption::before,
 figure.effect-bubba:hover figcaption::after {
-	opacity: 1;
-	-webkit-transform: scale(1);
-	transform: scale(1);
+    opacity: 1;
+    -webkit-transform: scale(1);
+    transform: scale(1);
 }
 
 figure.effect-bubba:hover h2,
 figure.effect-bubba:hover p {
-	opacity: 1;
-	-webkit-transform: translate3d(0,0,0);
-	transform: translate3d(0,0,0);
+    opacity: 1;
+    -webkit-transform: translate3d(0,0,0);
+    transform: translate3d(0,0,0);
 }
 
 /*----------------------
@@ -544,4 +544,249 @@ a.disabled {
     display: block;
     max-width: 100%;
     height: auto;
+}
+
+/*----------------------
+Bar chart
+----------------------*/
+.container-bar-title {
+    text-align: center;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+.container-news-title {
+    text-align: right;
+    margin-top: 0px;
+    margin-bottom: 0px;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+.container-bar {
+    width: 50%;
+    padding-right: 10px;
+    padding-left: 10px;
+    margin-right: auto;
+    margin-left: auto
+}
+
+@media(min-width:576px) {
+    .container-bar {
+        max-width: 540px
+    }
+}
+
+@media(min-width:768px) {
+    .container-bar {
+        max-width: 720px
+    }
+}
+
+@media(min-width:992px) {
+    .container-bar {
+        max-width: 960px
+    }
+}
+
+@media(min-width:1200px) {
+    .container-bar {
+        max-width: 1140px
+    }
+}
+
+/*----------------------
+Protocols
+----------------------*/
+.panel-title1 {
+    font-size: 15px;
+    font-weight: bold;
+    padding: 0;
+    margin: 0;
+    font-family: "Open Sans", Sans-serif;
+    border-left: 4px solid #98b3fa; /*f38787 65c465 98b3fa*/
+}
+
+.panel-title2 {
+    font-size: 15px;
+    font-weight: bold;
+    padding: 0;
+    margin: 0;
+    font-family: "Open Sans", Sans-serif;
+    border-left: 4px solid #65c465; /*f38787 65c465 98b3fa*/
+}
+
+.panel-default>.panel-heading {
+    color: #333;
+    background-color: #ffffff;
+    padding: 0;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.panel-default>.panel-heading a {
+    display: block;
+    padding: 10px 15px;
+}
+
+.panel-default>.panel-heading a:after {
+    content: "";
+    position: relative;
+    top: 1px;
+    display: inline-block;
+    font-family: 'Glyphicons Halflings';
+    font-style: normal;
+    font-weight: 400;
+    line-height: 1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    float: right;
+    transition: transform .25s linear;
+    -webkit-transition: -webkit-transform .25s linear;
+}
+
+.panel-default>.panel-heading a[aria-expanded="true"] {
+    background-color: #fafafafb;
+}
+
+.panel-default>.panel-heading a[aria-expanded="true"]:after {
+    content: "\2212";
+    -webkit-transform: rotate(180deg);
+    transform: rotate(180deg);
+}
+
+.panel-default>.panel-heading a[aria-expanded="false"]:after {
+    content: "\002b";
+    -webkit-transform: rotate(90deg);
+    transform: rotate(90deg);
+}
+
+/*----------------------
+Files
+----------------------*/
+.file-type {
+    height:30px;
+}
+
+/*--------------------------------------------------------------
+# Innovation Section
+--------------------------------------------------------------*/
+#section_innovation {
+    width: 100%;
+    /*height: 100vh;*/
+    position: relative;
+    background: url("../img/biotechnology-bg.jpg") top center;
+    background-size: cover;
+    position: relative;
+}
+
+#section_innovation:before {
+    content: "";
+    background: rgba(255, 255, 255, 0.8);
+    position: absolute;
+    bottom: 0;
+    top: 0;
+    left: 0;
+    right: 0;
+}
+
+#section_innovation .container {
+    padding-top: 0px; /*80px;*/
+}
+
+#section_innovation .icon-boxes {
+    margin-top: 0px; /*100px;*/
+}
+
+#section_innovation .icon-box {
+    padding: 50px 30px;
+    position: relative;
+    overflow: hidden;
+    background: #fff;
+    /*box-shadow: 0 0 29px 0 rgba(10, 83, 136, 0.08);*/
+    box-shadow: 0 0 15px 0 #4065839d;
+    transition: all 0.3s ease-in-out;
+    border-radius: 8px;
+    z-index: 1;
+}
+
+#section_innovation .icon-box .title {
+    font-weight: 700;
+    margin-bottom: 15px;
+    font-size: 18px;
+}
+
+#section_innovation .icon-box .title a {
+    color: #124265;
+    transition: 0.3s;
+}
+
+#section_innovation .icon-box .description {
+    font-size: 15px;
+    line-height: 28px;
+    margin-bottom: 0;
+}
+
+#section_innovation .icon-box .icon {
+    margin-bottom: 15px; /*20px*/
+    padding-top: 0px; /*10px*/
+    display: inline-block;
+    transition: all 0.3s ease-in-out;
+    font-size: 45px;
+    line-height: 1;
+    color: #2487ce;
+}
+
+#section_innovation .icon-box:hover {
+    transform: scale(1.08);
+}
+
+#section_innovation .icon-box:hover .title a {
+    color: #2487ce;
+}
+
+@media (min-width: 1024px) {
+    #section_innovation {
+        background-attachment: fixed;
+    }
+}
+
+@media (max-width: 992px), (max-height: 500) {
+    #section_innovation {
+        height: auto;
+    }
+    #section_innovation h1 {
+        font-size: 28px;
+        line-height: 36px;
+    }
+    #section_innovation h2 {
+        font-size: 18px;
+        line-height: 24px;
+    }
+}
+
+/*--------------------------------------------------------------
+# Floating icon
+--------------------------------------------------------------*/
+.floating-icon {
+    transition: all 0.3s ease-in-out;
+    display: inline-block;
+    margin: 0 auto;
+}
+
+.floating-icon:hover {
+    transform: scale(1.08);
+}
+
+/*--------------------------------------------------------------
+# Bootstrap-grid Update
+--------------------------------------------------------------*/
+.col-lg-4_5 {
+    -ms-flex: 0 0 37.483333%;
+    flex: 0 0 37.483333%;
+    max-width: 37.483333%;
 }

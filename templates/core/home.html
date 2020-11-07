@@ -21,17 +21,9 @@
                             <div class="text-justify">
                                 <p class="text-muted">
                                     {{ context_about.description|safe }}
-                                    <!--
-                                    {% if user.is_authenticated %}
-                                        <div class="text-left">
-                                            <!- -'admin:App_Model_Action' obj.id- ->
-                                            <a href="{% url 'admin:about_about_change' context_about.id %}" target="_blank" rel="noopener noreferrer">
-                                                Edit
-                                            </a>
-                                        </div>
-                                    {% endif %}
-                                    -->
-                                    {% if request.user.is_staff %}
+                                    <!--{{ request.user.is_staff }}-->
+                                    {% load custom_functions %}
+                                    {% if request.user|has_group:VG_GROUP_REGULAR or request.user.is_superuser %}
                                         <div class="text-left">
                                             <a href="{% url 'about_app:url_about_update' context_about.id %}">
                                                 Edit
@@ -71,7 +63,7 @@
                 {% for news in context_news %}
                 <div class="col-md-3">
                     <div class="team-item">
-                        <div class="team-image">
+                        <div class="team-image floating-icon">
                             <a href="{% url 'news_app:url_newsdetail' news.id %}">
                                 <img src="{{ news.logo.url }}" class="img-responsive">
                             </a>
@@ -86,9 +78,64 @@
                 </div>
                 {% endfor %}
             </div>
+            <div class="container-news-title">
+                <a href="{% url 'news_app:url_newsall' %}">See more...</a>
+            </div>
         </div>
     </section>
 {% endblock content_news %}
+
+<!-- Research -->
+{% block content_research %}
+    <section id="section_research">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <h2 class="section-heading text-uppercase">Pesquisa</h2>
+                    <h3 class="section-subheading text-muted">Estudo da biologia de fungos, ao nível de organização molecular, através de métodos experimentais e computacionais para análise de sequências de DNA, RNA e proteínas, em pequena e larga escalas.</h3>
+                </div>
+            </div>
+            <div class="row text-center">
+                <div class="col-md-4">
+                    <div class="floating-icon">
+                        <a href="{% url 'research_app:url_projects' %}">
+                            <span class="fa-stack fa-4x">
+                                <i class="fas fa-circle fa-stack-2x text-primary"></i>
+                                <i class="fas fa-flask fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </div>
+                    <h4 class="service-heading">Projetos</h4>
+                    <p class="text-muted">Projetos desenvolvidos pelo LBMCF ou em parcerias nacionais e internacionais, os quais tem uma grande importancia tecnológica, biotecnológica, social e de desenvolvimento principalmente para o Brasil.</p>
+                </div>
+                <div class="col-md-4">
+                    <div class="floating-icon">
+                        <a href="{% url 'research_app:url_protocols' %}">
+                            <span class="fa-stack fa-4x">
+                                <i class="fas fa-circle fa-stack-2x text-primary"></i>
+                                <i class="fas fa-check-double fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </div>
+                    <h4 class="service-heading">Protocolos</h4>
+                    <p class="text-muted">Técnicas, metodologías e fluxos de trabalho seguidos pelos pesquisadores do LBMCF, que podem servir de guia para outros pesquisadores.</p>
+                </div>
+                <div class="col-md-4">
+                    <div class="floating-icon">
+                        <a href="{% url 'research_app:url_files' %}">
+                            <span class="fa-stack fa-4x">
+                                <i class="fas fa-circle fa-stack-2x text-primary"></i>
+                                <i class="fas fa-folder-open fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </div>
+                    <h4 class="service-heading">Arquivos</h4>
+                    <p class="text-muted">Catálogo de documentos utilizados nas pesquisas feitas.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock content_research %}
 
 <!-- Team -->
 {% block content_team %}
@@ -100,39 +147,34 @@
                     <h3 class="section-subheading text-muted">Pesquisadores com diversos perfis atuam no laboratório, saiba um pouco mais deles...</h3>
                 </div>
             </div>
-            <!--Coordinator-->
+            <!--Principal Investigator | Coordinator-->
             <div class="row">
                 {% for member in context_members_coordinator %}
                     {% if context_members_coordinator.count == 1 %}
-                        {% with class_style="col-sm-12" %}
-                        <div class="{{ class_style }}">
-                        {% endwith %}
+                    {% with class_style="col-sm-12" %}
+                    <div class="{{ class_style }}">
+                    {% endwith %}
+                    {% elif context_members_coordinator.count == 2 %}
+                    {% with class_style="col-sm-6" %}
+                    <div class="{{ class_style }}">
+                    {% endwith %}
+                    {% elif context_members_coordinator.count == 3 %}
+                    {% with class_style="col-sm-4" %}
+                    <div class="{{ class_style }}">
+                    {% endwith %}
+                    {% elif context_members_coordinator.count == 4 %}
+                    {% with class_style="col-sm-3" %}
+                    <div class="{{ class_style }}">
+                    {% endwith %}
                     {% else %}
-                        {% if context_members_coordinator.count == 2 %}
-                            {% with class_style="col-sm-6" %}
-                            <div class="{{ class_style }}">
-                            {% endwith %}
-                        {% else %}
-                            {% if context_members_coordinator.count == 3 %}
-                                {% with class_style="col-sm-4" %}
-                                <div class="{{ class_style }}">
-                                {% endwith %}
-                            {% else %}
-                                {% if context_members_coordinator.count == 4 %}
-                                    {% with class_style="col-sm-3" %}
-                                    <div class="{{ class_style }}">
-                                    {% endwith %}
-                                {% else %}
-                                    <div>
-                                {% endif %}
-                            {% endif %}
-                        {% endif %}
+                    <div>
                     {% endif %}
-                    <!--<div class="col-sm-12">-->
                         <div class="team-member">
-                            <a href="#modal_information" class="open-modal_information" data-toggle="modal" data-name="{{ member }}" data-biography="{{ member.biography }}" data-title="Biography" data-icon="fas fa-user-graduate"><!--fas fa-address-card-->
-                                <img class="mx-auto rounded-circle" src="{{ member.image.url }}" alt="">
-                            </a>
+                            <div class="floating-icon">
+                                <a href="#modal_information" class="open-modal_information" data-toggle="modal" data-name="{{ member }}" data-biography="{{ member.biography }}" data-title="Biography" data-icon="fas fa-user-graduate"><!--fas fa-address-card-->
+                                    <img class="mx-auto rounded-circle" src="{{ member.image.url }}" alt="">
+                                </a>
+                            </div>
                             <h5>
                                 {{ member.degree.name }} {{ member }}
                                 {% with 'img/flags/countries/'|add:member.country.code|lower|add:'.png' as image_static %}
@@ -142,30 +184,48 @@
                             <p class="text-muted">{{ member.role }}</p>
                             <ul class="list-inline social-buttons">
                                 <li class="list-inline-item">
-                                    <a href="#modal_information" class="open-modal_information" data-toggle="modal" data-phone="" data-title="Phone" data-icon="fas fa-phone">
+                                    {% if member.phone %}
+                                    <a href="#modal_information" class="open-modal_information" data-toggle="modal" data-phone="{{ member.phone }}" data-title="Phone" data-icon="fas fa-phone">
                                         <i class="fas fa-phone"></i>
                                     </a>
+                                    {% else %}
+                                    <a href="#" class="disabled">
+                                        <i class="fas fa-phone"></i>
+                                    </a>
+                                    {% endif %}
                                 </li>
                                 <li class="list-inline-item">
+                                    {% if member.email %}
                                     <a href="#modal_information" class="open-modal_information" data-toggle="modal" data-email="{{ member.email }}" data-title="E-mail" data-icon="fas fa-envelope">
                                         <i class="fas fa-envelope"></i>
                                     </a>
+                                    {% else %}
+                                    <a href="#" class="disabled">
+                                        <i class="fas fa-envelope"></i>
+                                    </a>
+                                    {% endif %}
                                 </li>
                                 <li class="list-inline-item">
-                                {% if member.linkedin %}
+                                    {% if member.linkedin %}
                                     <a href="{{ member.linkedin }}" target="_blank" rel="noopener noreferrer">
                                         <i class="fab fa-linkedin-in"></i>
                                     </a>
-                                {% else %}
+                                    {% else %}
                                     <a href="#" class="disabled">
                                         <i class="fab fa-linkedin-in"></i>
                                     </a>
-                                {% endif %}
+                                    {% endif %}
                                 </li>
                                 <li class="list-inline-item lattes-buttons-alter">
+                                    {% if member.lattes %}
                                     <a href="{{ member.lattes }}" target="_blank" rel="noopener noreferrer">
                                         <img src="{% static 'img/lattes-white.png' %}">
                                     </a>
+                                    {% else %}
+                                    <a href="#" class="disabled">
+                                        <img src="{% static 'img/lattes-white.png' %}">
+                                    </a>
+                                    {% endif %}
                                 </li>
                             </ul>
                         </div>
@@ -177,9 +237,11 @@
                 {% for member in context_members %}
                     <div class="col-md-3 col-sm-6">
                         <div class="team-member">
-                            <a href="#modal_information" class="open-modal_information" data-toggle="modal" data-name="{{ member }}" data-biography="{{ member.biography }}" data-title="Biography" data-icon="fas fa-user-graduate"><!--fas fa-address-card-->
-                                <img class="mx-auto rounded-circle" src="{{ member.image.url }}" alt="">
-                            </a>
+                            <div class="floating-icon">
+                                <a href="#modal_information" class="open-modal_information" data-toggle="modal" data-name="{{ member }}" data-biography="{{ member.biography }}" data-title="Biography" data-icon="fas fa-user-graduate"><!--fas fa-address-card-->
+                                    <img class="mx-auto rounded-circle" src="{{ member.image.url }}" alt="">
+                                </a>
+                            </div>
                             <h5>
                                 {{ member }}
                                 {% with 'img/flags/countries/'|add:member.country.code|lower|add:'.png' as image_static %}
@@ -189,32 +251,50 @@
                             <p class="text-muted">{{ member.role }}</p>
                             <ul class="list-inline social-buttons">
                                 <li class="list-inline-item">
+                                    {% if member.email %}
                                     <a href="#modal_information" class="open-modal_information" data-toggle="modal" data-email="{{ member.email }}" data-title="E-mail" data-icon="fas fa-envelope">
                                         <i class="fas fa-envelope"></i>
                                     </a>
+                                    {% else %}
+                                    <a href="#" class="disabled">
+                                        <i class="fas fa-envelope"></i>
+                                    </a>
+                                    {% endif %}
                                 </li>
                                 <!--
                                 <li class="list-inline-item">
+                                    {% if member.phone %}
                                     <a href="#modal_information" class="open-modal_information" data-toggle="modal" data-mobile="{{ member.phone }}" data-title="Mobile" data-icon="fas fa-mobile-alt">
-                                        <i class="fas fa-mobile-alt"></i>< !--fab fa-researchgate-- >
+                                        <i class="fas fa-mobile-alt"></i>
                                     </a>
+                                    {% else %}
+                                    <a href="#" class="disabled">
+                                        <i class="fas fa-mobile-alt"></i>
+                                    </a>
+                                    {% endif %}
                                 </li>
                                 -->
                                 <li class="list-inline-item">
-                                {% if member.linkedin %}
+                                    {% if member.linkedin %}
                                     <a href="{{ member.linkedin }}" target="_blank" rel="noopener noreferrer">
                                         <i class="fab fa-linkedin-in"></i>
                                     </a>
-                                {% else %}
+                                    {% else %}
                                     <a href="#" class="disabled">
                                         <i class="fab fa-linkedin-in"></i>
                                     </a>
-                                {% endif %}
+                                    {% endif %}
                                 </li>
                                 <li class="list-inline-item lattes-buttons-alter">
+                                    {% if member.lattes %}
                                     <a href="{{ member.lattes }}" target="_blank" rel="noopener noreferrer">
                                         <img src="{% static 'img/lattes-white.png' %}">
                                     </a>
+                                    {% else %}
+                                    <a href="#" class="disabled">
+                                        <img src="{% static 'img/lattes-white.png' %}">
+                                    </a>
+                                    {% endif %}
                                 </li>
                             </ul>
                         </div>
@@ -226,12 +306,15 @@
                     <p class="large text-muted">Seja parte de nosso equipe, aguardamos você...</p>
                 </div>
             </div>
+            <div class="container-news-title">
+                <a href="{% url 'members_app:url_oldmembers' %}">See the former members...</a>
+            </div>
         </div>
     </section>
 
     <!-- Modal -->
     <div class="modal fade" id="modal_information" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-        <div class="modal-dialog" role="document"><!--modal-dialog-centered-->
+        <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <h4 class="modal-title text-uppercase" id="myModalLabel">
@@ -261,7 +344,6 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <!--btn-default-->
                     <button class="btn btn-primary mx-auto" data-dismiss="modal" type="button">
                         <i class="fas fa-times"></i>&nbsp;Close
                     </button>
@@ -318,6 +400,17 @@
                         {% endif %}
                     {% endfor %}
                     </ol>
+                </div>
+            </div>
+            <!-- Bar Chart -->
+            <div class="container-bar-title">
+                <a href="#collapse-bar" data-toggle="collapse" id="collapsible">See stats</a>
+            </div>
+            <div id="collapse-bar" class="collapse">
+                <div class="card card-body">
+                    <div class="container-bar">
+                        <canvas id="canvas"></canvas>
+                    </div>
                 </div>
             </div>
         </div>
@@ -377,7 +470,6 @@
 
     <!-- Modals -->
     {% for state_id, hash_partnerships_detail in context_partnerships_detail.items %}
-        <!-- Modal #{{ state_id }} | {% if state_id != 0 %}{{ hash_partnerships_detail.state_name }}{% else %}International{% endif %} -->
         <div class="portfolio-modal modal fade" id="modal_partnership{{ state_id }}" tabindex="-1" role="dialog" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
@@ -409,7 +501,7 @@
                                         {% for institutions_id, hash_partnerships in hash_partnerships_detail.data.items %}
                                         <ul class="list-inline social-buttons text-left">
                                             <div class="item-intro-subtitle1 text-muted">
-                                                {{ hash_partnerships.institution }} ({{ hash_partnerships.institution_short_name }})
+                                                {{ hash_partnerships.institution }} ({{ hash_partnerships.institution_name }})
                                             </div>
                                             <li class="list-inline-item lattes-buttons-modal">
                                                 {% for item, partnership in hash_partnerships.data.items %}
@@ -451,7 +543,7 @@
                                                 </div>
                                                 {% for item, hash_partnership in hash_countries.data.items %}
                                                     <div class="item-intro-subtitle3 text-muted">
-                                                        {{ hash_partnership.institution }} ({{ hash_partnership.institution_short_name }})
+                                                        {{ hash_partnership.institution }} ({{ hash_partnership.institution_name }})
                                                     </div>
                                                     {% for code, partnership in hash_partnership.data.items %}
                                                         <div class="row pb-2">
@@ -497,6 +589,41 @@
     {% endfor %}
 {% endblock content_partnerships %}
 
+<!-- Innovation -->
+{% block content_innovation %}
+    <section id="section_innovation" class="d-flex align-items-center">
+        <div class="container position-relative" data-aos="fade-up" data-aos-delay="100">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <h2 class="section-heading text-uppercase">
+                        Inovação
+                    </h2>
+                    <h3 class="section-subheading text-muted">
+                        Produtos desenvolvidos pelo laboratório em colaboração com parceiros
+                    </h3>
+                </div>
+            </div>
+            <div class="row icon-boxes">
+                <div class="col-lg-4_5"></div>
+                <div class="col-md-6 col-lg-3 d-flex align-items-stretch mb-5 mb-lg-0" data-aos="zoom-in" data-aos-delay="200">
+                    <div class="icon-box">
+                        <div class="icon">
+                            <i class="ri-shield-star-line"></i><!--ri-shield-star-line | ri-bookmark-3-line | ri-microscope-line-->
+                        </div>
+                        <h4 class="title">
+                            <a href="{% url 'innovation_app:url_patents' %}">Patentes</a>
+                        </h4>
+                        <p class="description">
+                            Patentes desenvolvidas pelo LBMCF e parceiros.
+                        </p>
+                    </div>
+                </div>
+                <div class="col-lg-4_5"></div>
+            </div>
+        </div>
+    </section>
+{% endblock content_innovation %}
+
 <!-- Links -->
 {% block content_links %}
     <section class="py-5">
@@ -535,7 +662,7 @@
 
 {% block javascriptplus %}
     <script>
-        //Team
+        // Team
         $(document).on("click", ".open-modal_information", function () {
             var _not_registered = 'Not registered';
             var _title = $(this).data('title');
@@ -570,6 +697,61 @@
             $(".modal-header #infotitle").text(_title);
             $(".modal-body #infoicon").attr('class', '');
             $(".modal-body #infoicon").attr('class', _icon);
+        });
+
+        // Bar Chart
+        var arr_year = "{{ context_papers_list.year }}";
+        var arr_count = "{{ context_papers_list.count }}";
+        var LABELS = arr_year.split('|');
+        var DATA = arr_count.split('|');
+
+        var total = 0;
+        DATA.forEach(function (item, index) {
+            total += parseInt(item);
+        });
+
+        var color = Chart.helpers.color;
+        var barChartData = {
+            labels: LABELS,
+            datasets: [{
+                label: '# Articles',
+                backgroundColor: color('#36a3eb').alpha(0.5).rgbString(),
+                borderColor: '#36a3eb',
+                borderWidth: 1,
+                data: DATA
+            }]
+        };
+
+        window.onload = function() {
+            var ctx = document.getElementById('canvas').getContext('2d');
+            window.myBar = new Chart(ctx, {
+                type: 'bar',
+                data: barChartData,
+                options: {
+                    responsive: true,
+                    legend: {
+                        position: 'bottom',
+                    },
+                    title: {
+                        display: true,
+                        text: 'Articles published per year (Total: ' + total + ')'
+                    },
+                    scales: {
+                        yAxes: [{
+                            ticks: {
+                                beginAtZero: true
+                            }
+                        }]
+                    }
+                }
+            });
+        };
+
+        // See/Hide Stats
+        $('#collapsible').click(function(){
+            $(this).text(function(i, old){
+                return old=='See stats' ?  'Hide statistics' : 'See stats';
+            });
         });
     </script>
 {% endblock javascriptplus %}

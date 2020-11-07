@@ -28,6 +28,8 @@
                         <a class="copyright" href="{% url 'legal_app:url_pages' page.id page.title|slugify %}">{{ page.title }}</a>
                         {% if not forloop.last %}.{% endif %}
                     {% endfor %}
+                    &nbsp;|&nbsp;
+                    <a class="copyright" href="{% url 'contact_app:url_contact' %}">Contact</a>
                 </div>
                 <div class="col-md-3">
                     <ul class="list-inline social-buttons">

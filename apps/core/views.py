@@ -13,7 +13,6 @@ from apps.news.models import News
 from django.db.models import Count
 from django.db.models import Q
 from django.db.models.functions import ExtractYear
-from pprintpp import pprint
 
 class HomeView(ListView):
     template_name = "core/home.html"
@@ -80,6 +79,7 @@ class HomeView(ListView):
         query_papers = Paper.objects.filter(status = True).order_by('-published')
         hash_papers_year = {}
         hash_years = {}
+        hash_years_all = {}
         year_group = 0
         count = 0
         group = 0
@@ -101,10 +101,22 @@ class HomeView(ListView):
             year_group = _year
             count += 1
 
+            if _year in hash_years_all:
+                hash_years_all.update({_year: hash_years_all[_year] + 1})
+            else:
+                hash_years_all.update({_year: 1})
+
         if len(hash_years) > 0:
             hash_papers_year.update({group: hash_years})
-    
+
+        _hash_keys = list(reversed(list(hash_years_all.keys())))
+        _hash_values = list(reversed(list(hash_years_all.values())))
+
+        hash_papers_list = {'year': '|'.join(str(i) for i in _hash_keys),
+                            'count': '|'.join(str(i) for i in _hash_values)}
+
         context['context_papers_year'] = hash_papers_year
+        context['context_papers_list'] = hash_papers_list
 
         # Partnerships context
         query_partnerships_national = Partnership.objects\
@@ -176,7 +188,7 @@ class HomeView(ListView):
             hash_institution_current = {}
             hash_institution_current['institution_id'] = institution_id
             hash_institution_current['institution'] = partner.institution.full_name
-            hash_institution_current['institution_short_name'] = partner.institution.short_name
+            hash_institution_current['institution_name'] = partner.institution.name
             # hash_institution_current['institution_country_id'] = country_id
             # hash_institution_current['institution_country'] = partner.institution.country.name
             # hash_institution_current['institution_country_code'] = partner.institution.country.code
@@ -231,31 +243,7 @@ class HomeView(ListView):
         context['context_partnerships_detail'] = hash_partnerships_detail
 
         # News context
-        query_news = News.objects.all().filter(status = True)
+        query_news = News.objects.all().filter(status = True)[:4]
         context['context_news'] = query_news
 
         return context
-
-'''
-    Entry.objects.filter(blog_id=4)
-    Entry.objects.all().filter(pub_date__year=2006)
-    Entry.objects.filter(pub_date__year=2006)
-    Entry.objects.filter(pub_date__lte='2006-01-01')
-    # SELECT * FROM blog_entry WHERE pub_date <= '2006-01-01';
-    Entry.objects.get(headline__exact="Cat bites dog")
-    Blog.objects.get(id=14)
-
-    MyModel.objects
-           .filter(row_id__in=[15,17])\
-           .distinct()\
-           .values('user_id')\
-           .annotate(user_count=Count('user_id'))\
-           .filter(user_count__gt=1)\
-           .order_by('user_id')
-
-    SELECT DISTINCT user_id, COUNT(*)
-      FROM my_model 
-     WHERE tag_id = 15 OR tag_id = 17
-     GROUP BY user_id 
-    HAVING COUNT(*) > 1
-'''

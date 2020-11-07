@@ -19,13 +19,14 @@ class Financer(models.Model):
 class AcademicDegree(models.Model):
     name = models.CharField(max_length = 200, verbose_name = 'Academic Degree')
     description = models.TextField(blank = True, verbose_name = 'Description', help_text = 'Description')
+    order = models.SmallIntegerField(verbose_name = 'Order', default = 0)
     status = models.BooleanField(default = True, verbose_name =  'Status')
     created = models.DateTimeField(auto_now_add = True, blank = True, null = True, verbose_name = 'Creation date')
     updated = models.DateTimeField(auto_now = True, blank = True, null = True, verbose_name = 'Modification date')
 
     class Meta:
         verbose_name = "Academic Degree"
-        ordering = ["name"]
+        ordering = ["order", "name"]
 
     def __str__(self):
         return self.name
@@ -94,7 +95,7 @@ class State(models.Model):
         return self.name
 
 class Institution(models.Model):
-    short_name = models.CharField(max_length = 50, verbose_name = 'Short name')
+    name = models.CharField(max_length = 50, verbose_name = 'Short name')
     full_name = models.CharField(max_length = 200, verbose_name = 'Full name')
     description = models.TextField(blank = True, verbose_name = 'Description', help_text = 'Description')
     country = models.ForeignKey(to = Country, on_delete = models.CASCADE, verbose_name = 'Country name')
@@ -123,6 +124,68 @@ class GraduateProgram(models.Model):
     class Meta:
         verbose_name = "Graduate Program"
         verbose_name_plural = "Graduate Programs"
+        ordering = ["name"]
+
+    def __str__(self):
+        return self.name
+
+class ProtocolType(models.Model):
+    name = models.CharField(max_length = 200, verbose_name = 'Protocol type name')
+    description = models.TextField(blank = True, verbose_name = 'Description', help_text = 'Description')
+    status = models.BooleanField(default = True, verbose_name =  'Status')
+    created = models.DateTimeField(auto_now_add = True, blank = True, null = True, verbose_name = 'Creation date')
+    updated = models.DateTimeField(auto_now = True, blank = True, null = True, verbose_name = 'Modification date')
+
+    class Meta:
+        verbose_name = "Protocol Type"
+        verbose_name_plural = "Protocol Types"
+        ordering = ["name"]
+
+    def __str__(self):
+        return self.name
+
+class FileType(models.Model):
+    name = models.CharField(max_length = 200, verbose_name = 'File type name')
+    description = models.TextField(blank = True, verbose_name = 'Description', help_text = 'Description')
+    status = models.BooleanField(default = True, verbose_name =  'Status')
+    created = models.DateTimeField(auto_now_add = True, blank = True, null = True, verbose_name = 'Creation date')
+    updated = models.DateTimeField(auto_now = True, blank = True, null = True, verbose_name = 'Modification date')
+
+    class Meta:
+        verbose_name = "File Type"
+        verbose_name_plural = "File Types"
+        ordering = ["name"]
+
+    def __str__(self):
+        return self.name
+
+class RegistryInstitution(models.Model):
+    name = models.CharField(max_length = 15, verbose_name = 'Short name')
+    full_name = models.CharField(max_length = 200, blank = True, verbose_name = 'Full name')
+    description = models.TextField(blank = True, verbose_name = 'Description', help_text = 'Description')
+    country = models.ForeignKey(to = Country, on_delete = models.CASCADE, verbose_name = 'Country name')
+    status = models.BooleanField(default = True, verbose_name =  'Status')
+    created = models.DateTimeField(auto_now_add = True, blank = True, null = True, verbose_name = 'Creation date')
+    updated = models.DateTimeField(auto_now = True, blank = True, null = True, verbose_name = 'Modification date')
+
+    class Meta:
+        verbose_name = "Registry Institution"
+        verbose_name_plural = "Registry Institutions"
+        ordering = ["name"]
+
+    def __str__(self):
+        return self.name
+
+class PatentType(models.Model):
+    name = models.CharField(max_length = 200, verbose_name = 'Patent type name')
+    description = models.TextField(blank = True, verbose_name = 'Description', help_text = 'Description')
+    status = models.BooleanField(default = True, verbose_name =  'Status')
+    created = models.DateTimeField(auto_now_add = True, blank = True, null = True, verbose_name = 'Creation date')
+    updated = models.DateTimeField(auto_now = True, blank = True, null = True, verbose_name = 'Modification date')
+
+    class Meta:
+        verbose_name = "Patent Type"
+        verbose_name_plural = "Patent Types"
         ordering = ["name"]
 
     def __str__(self):

@@ -7,6 +7,12 @@ from .models import (
     EventPhoto,
 )
 
+class NewsAllView(ListView):
+    model = News
+    queryset = News.objects.all().filter(status = True)
+    template_name = "news/news_all.html"
+    context_object_name = "context_newsall"
+
 class NewsDetailView(ListView):
     model = News
     template_name = "news/news.html"

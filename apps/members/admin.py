@@ -6,6 +6,7 @@ from .models import (
 class MemberAdmin(admin.ModelAdmin):
     list_display = [
         '__str__',
+        'degree',
         'role',
         'graduateprogram',
         'country',

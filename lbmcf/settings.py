@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/2.2/ref/settings/
 """
 import os
+from decouple import config
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -18,18 +19,15 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'g*u)%%6v#&&#2m06k@-i#(s2do_%f-2+$rg43auvu(@-ozy=mn'
+SECRET_KEY = config('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-
-'''
-# Development
-DEBUG = True
+DEBUG = config('DEBUG', default = True, cast = bool)
+HOSTS = config('ALLOWED_HOSTS', default = '')
 ALLOWED_HOSTS = []
-'''
-# Production
-DEBUG = False
-ALLOWED_HOSTS = ['lbmcf.pythonanywhere.com', 'localhost', '127.0.0.1']
+if HOSTS:
+    for host in HOSTS.split(','):
+        ALLOWED_HOSTS.append(host)
 
 # Application definition
 
@@ -44,6 +42,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     # other apps
     'ckeditor',
+    'naomi',
     # my apps
     'apps.core',
     'apps.research',
@@ -58,6 +57,7 @@ INSTALLED_APPS = [
     'apps.messenger',
     'apps.links',
     'apps.news',
+    'apps.innovation',
     #'apps.research.apps.ResearchConfig',
 ]
 
@@ -85,6 +85,7 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
                 'apps.social.processors.get_links',
+                'apps.legal.processors.global_settings',
             ],
         },
     },
@@ -95,29 +96,19 @@ WSGI_APPLICATION = 'lbmcf.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
 
-'''
-# Development
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'dblbmcf',
-        'USER': 'bioinfo',
-        'PASSWORD': '123456',
-        'HOST': 'localhost',   # Or an IP Address that your DB is hosted on
-        'PORT': '3306',
+        'ENGINE': config('DB_ENGINE', default = ''),
+        'NAME': config('DB_NAME', default = ''),
+        'USER': config('DB_USER', default = ''),
+        'PASSWORD': config('DB_PASSWORD', default = ''),
+        'HOST': config('DB_HOST', default = ''),
     }
 }
-'''
-# Production
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'lbmcf$dblbmcf',
-        'USER': 'lbmcf',
-        'PASSWORD': 'p@55w0rd',
-        'HOST': 'lbmcf.mysql.pythonanywhere-services.com',
-    }
-}
+
+_db_port = config('DB_PORT', default = '')
+if _db_port:
+    DATABASES['default'].update({'PORT': _db_port})
 
 # Password validation
 # https://docs.djangoproject.com/en/2.2/ref/settings/#auth-password-validators
@@ -156,8 +147,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
 STATIC_URL = '/static/'
-#STATIC_ROOT = os.path.join(BASE_DIR, 'static')
-#STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+# STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static'),
 ]
@@ -185,23 +175,16 @@ CKEDITOR_CONFIGS = {
 LOGOUT_REDIRECT_URL = 'core_app:url_home'
 
 # Email config
-'''
-# Development (Backend)
 if DEBUG:
-    EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'
+    # EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'
+    EMAIL_BACKEND = "naomi.mail.backends.naomi.NaomiBackend"
     EMAIL_FILE_PATH = os.path.join(BASE_DIR, 'send_emails')
-else:
-    # Config email real (production)
-    EMAIL_HOST = 'smtp.mailtrap.io'
-    EMAIL_HOST_USER = 'bfc9508ddc3729'
-    EMAIL_HOST_PASSWORD = '40f36ff7870ace'
-    EMAIL_PORT = '2525'
-    # pass
 
-# Production (pythonanywhare)
-EMAIL_HOST = "smtp.gmail.com"
-EMAIL_HOST_USER = "yourusername@gmail.com"
-EMAIL_HOST_PASSWORD = 'yourpassword'
-EMAIL_PORT = 587
-EMAIL_USE_TLS = True
-'''
+EMAIL_HOST = config('EMAIL_HOST', default = 'localhost')
+EMAIL_PORT = config('EMAIL_PORT', default = 587, cast = int)
+EMAIL_HOST_USER = config('EMAIL_HOST_USER', default = '')
+EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD', default = '')
+EMAIL_USE_TLS = config('EMAIL_USE_TLS', default = False, cast = bool)
+
+# GROUPS DB
+GROUP_REGULAR = "regular"

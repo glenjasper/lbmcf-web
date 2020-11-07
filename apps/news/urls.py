@@ -7,4 +7,9 @@ urlpatterns = [
         view = views.NewsDetailView.as_view(),
         name = 'url_newsdetail'
     ),
+    path(
+        route = 'newsall/',
+        view = views.NewsAllView.as_view(),
+        name = 'url_newsall'
+    ),
 ]
