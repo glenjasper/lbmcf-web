@@ -48,35 +48,35 @@
                                                 <a href="{{ file.pdf.url }}" target="_blank" rel="noopener noreferrer">
                                                 {% load custom_functions %}
                                                 {% if file.pdf|endswith:'.pdf' %}
-                                                    <img src="{% static 'img/file/pdffile.png' %}" class="file-type">
+                                                    <img src="{% static 'img/files/pdffile.png' %}" class="file-type">
                                                 {% elif file.pdf|endswith:'.docx' or file.pdf|endswith:'.doc' %}
-                                                    <img src="{% static 'img/file/docfile.png' %}" class="file-type">
+                                                    <img src="{% static 'img/files/docfile.png' %}" class="file-type">
                                                 {% elif file.pdf|endswith:'.xlsx' or file.pdf|endswith:'.xls' %}
-                                                    <img src="{% static 'img/file/xlsfile.png' %}" class="file-type">
+                                                    <img src="{% static 'img/files/xlsfile.png' %}" class="file-type">
                                                 {% elif file.pdf|endswith:'.pptx' or file.pdf|endswith:'.ppt' %}
-                                                    <img src="{% static 'img/file/pptfile.png' %}" class="file-type">
+                                                    <img src="{% static 'img/files/pptfile.png' %}" class="file-type">
                                                 {% elif file.pdf|endswith:'.txt' %}
-                                                    <img src="{% static 'img/file/txtfile.png' %}" class="file-type">
+                                                    <img src="{% static 'img/files/txtfile.png' %}" class="file-type">
                                                 {% elif file.pdf|endswith:'.py' %}
-                                                    <img src="{% static 'img/file/pyfile.png' %}" class="file-type">
+                                                    <img src="{% static 'img/files/pyfile.png' %}" class="file-type">
                                                 {% elif file.pdf|endswith:'.pl' %}
-                                                    <img src="{% static 'img/file/plfile.png' %}" class="file-type">
+                                                    <img src="{% static 'img/files/plfile.png' %}" class="file-type">
                                                 {% elif file.pdf|endswith:'.r' %}
-                                                    <img src="{% static 'img/file/rfile.png' %}" class="file-type">
+                                                    <img src="{% static 'img/files/rfile.png' %}" class="file-type">
                                                 {% elif file.pdf|endswith:'.js' %}
-                                                    <img src="{% static 'img/file/jsfile.png' %}" class="file-type">
+                                                    <img src="{% static 'img/files/jsfile.png' %}" class="file-type">
                                                 {% elif file.pdf|endswith:'.xml' %}
-                                                    <img src="{% static 'img/file/xmlfile.png' %}" class="file-type">
+                                                    <img src="{% static 'img/files/xmlfile.png' %}" class="file-type">
                                                 {% elif file.pdf|endswith:'.txt' %}
-                                                    <img src="{% static 'img/file/txtfile.png' %}" class="file-type">
+                                                    <img src="{% static 'img/files/txtfile.png' %}" class="file-type">
                                                 {% elif file.pdf|endswith:'.java' %}
-                                                    <img src="{% static 'img/file/javafile.png' %}" class="file-type">
+                                                    <img src="{% static 'img/files/javafile.png' %}" class="file-type">
                                                 {% elif file.pdf|endswith:'.c' %}
-                                                    <img src="{% static 'img/file/cfile.png' %}" class="file-type">
+                                                    <img src="{% static 'img/files/cfile.png' %}" class="file-type">
                                                 {% elif file.pdf|endswith:'.cpp' %}
-                                                    <img src="{% static 'img/file/cppfile.png' %}" class="file-type">
+                                                    <img src="{% static 'img/files/cppfile.png' %}" class="file-type">
                                                 {% else %}
-                                                    <img src="{% static 'img/file/filetype.png' %}" class="file-type">
+                                                    <img src="{% static 'img/files/unknownfile.png' %}" class="file-type">
                                                 {% endif %}
                                                 </a>
                                             </td>
