@@ -21,7 +21,7 @@ class Member(models.Model):
     birth_date = models.DateField(blank = True, null = True, verbose_name = 'Birthdate')
     email = models.EmailField(max_length = 80, blank = True, verbose_name = 'E-mail')
     phone = models.CharField(max_length = 150, blank = True, verbose_name = 'Phone')
-    lattes = models.URLField(max_length = 150, blank = True, null = True, unique = True, verbose_name = 'Lattes link')
+    lattes = models.URLField(max_length = 150, blank = True, verbose_name = 'Lattes link')
     linkedin = models.URLField(max_length = 150, blank = True, verbose_name = 'LinkedIn link')
     orcid = models.URLField(max_length = 150, blank = True, verbose_name = 'ORCID link')
     researchgate = models.URLField(max_length = 150, blank = True, verbose_name = 'Research Gate link')
