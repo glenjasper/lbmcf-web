@@ -18,6 +18,7 @@ from django.contrib import admin
 from apps.profiles.urls import profiles_patterns
 from apps.messenger.urls import messenger_patterns
 from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
     path('', include(('apps.core.urls', 'core_app'), namespace = 'core_app')),
@@ -37,7 +38,6 @@ urlpatterns = [
 ]
 
 if settings.DEBUG:
-    from django.conf.urls.static import static
     urlpatterns += static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
 
 # Custom titles for admin
