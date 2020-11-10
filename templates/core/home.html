@@ -23,7 +23,7 @@
                                     {{ context_about.description|safe }}
                                     <!--{{ request.user.is_staff }}-->
                                     {% load custom_functions %}
-                                    {% if request.user|has_group:VG_GROUP_REGULAR or request.user.is_superuser %}
+                                    {% if request.user.is_superuser or request.user|has_group:VG_GROUP_REGULAR %}
                                         <div class="text-left">
                                             <a href="{% url 'about_app:url_about_update' context_about.id %}">
                                                 Edit

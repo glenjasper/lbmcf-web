@@ -16,7 +16,7 @@
                 </div>
             </div>
             {% load custom_functions %}
-            {% if request.user|has_group:VG_GROUP_REGULAR or request.user.is_superuser %}
+            {% if request.user.is_superuser or request.user|has_group:VG_GROUP_REGULAR %}
             <div class="accordion" id="accordion_id">
                 {% for file, detail in context_files.items %}
                 <div class="card panel-default">

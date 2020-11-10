@@ -41,7 +41,7 @@
                                 -->
                                 <!--{{ request.user.is_staff }}-->
                                 {% load custom_functions %}
-                                {% if request.user|has_group:VG_GROUP_REGULAR or request.user.is_superuser %}
+                                {% if request.user.is_superuser or request.user|has_group:VG_GROUP_REGULAR %}
                                     <div class="text-left">
                                         <a href="{% url 'legal_app:url_legal_update' context_legal.id %}">
                                             Edit
