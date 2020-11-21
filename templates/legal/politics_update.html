@@ -23,7 +23,8 @@
                                 Politica atualizada corretamente
                             </p>
                         {% endif %}
-                        <form action="" method="post">{% csrf_token %}
+                        <form action="" method="post">
+                            {% csrf_token %}
                             {{ form.as_p }}
                             <div class="col-md-3 mx-auto text-center">
                                 <input type="submit" class="btn btn-primary btn-block" value="Atualizar"/>
