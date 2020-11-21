@@ -1,7 +1,5 @@
 from django.contrib import admin
-from .models import (
-    Legal
-)
+from .models import Legal
 
 class LegalAdmin(admin.ModelAdmin):
     list_display = [
