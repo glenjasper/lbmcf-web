@@ -43,6 +43,6 @@ if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
 
 # Custom titles for admin
-admin.site.site_header = "LBMCF"
-admin.site.index_title = "Painel de administração"
 admin.site.site_title = "LBMCF"
+admin.site.site_header = "LBMCF"
+# admin.site.index_title = "Painel de administração"
