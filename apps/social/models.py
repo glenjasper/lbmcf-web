@@ -1,4 +1,5 @@
 from django.db import models
+from auditlog.registry import auditlog
 
 class LinkSocial(models.Model):
     key = models.SlugField(max_length = 100, unique = True, verbose_name = 'Link key')
@@ -15,3 +16,5 @@ class LinkSocial(models.Model):
 
     def __str__(self):
         return self.name
+
+auditlog.register(LinkSocial)

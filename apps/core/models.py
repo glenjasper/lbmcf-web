@@ -1,4 +1,5 @@
 from django.db import models
+from auditlog.registry import auditlog
 
 class Financer(models.Model):
     name = models.CharField(max_length = 15, verbose_name = 'Short name')
@@ -190,3 +191,16 @@ class PatentType(models.Model):
 
     def __str__(self):
         return self.name
+
+auditlog.register(Financer)
+auditlog.register(AcademicDegree)
+auditlog.register(Role)
+auditlog.register(Department)
+auditlog.register(Country)
+auditlog.register(State)
+auditlog.register(Institution)
+auditlog.register(GraduateProgram)
+auditlog.register(ProtocolType)
+auditlog.register(FileType)
+auditlog.register(RegistryInstitution)
+auditlog.register(PatentType)

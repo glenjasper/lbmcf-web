@@ -1,4 +1,5 @@
 from django.db import models
+from auditlog.registry import auditlog
 from apps.core.models import Financer, ProtocolType, FileType
 
 class Project(models.Model):
@@ -52,3 +53,7 @@ class File(models.Model):
 
     def __str__(self):
         return self.name
+
+auditlog.register(Project)
+auditlog.register(Protocol)
+auditlog.register(File)

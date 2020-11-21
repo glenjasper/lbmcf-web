@@ -1,4 +1,5 @@
 from django.db import models
+from auditlog.registry import auditlog
 from apps.core.models import (
     AcademicDegree,
     Role,
@@ -46,3 +47,5 @@ class Member(models.Model):
                     first_name = self.first_name,
                     last_name = self.last_name
                 )
+
+auditlog.register(Member)

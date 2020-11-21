@@ -3,4 +3,5 @@ Pillow==7.1.0
 mysqlclient==1.4.2
 django-ckeditor==5.6.1
 django-naomi==0.8
+django-auditlog==0.4.7
 python-decouple==3.3

@@ -1,5 +1,6 @@
 from django.db import models
 from ckeditor.fields import RichTextField
+from auditlog.registry import auditlog
 
 class About(models.Model):
     title = models.CharField(max_length = 100, verbose_name = 'Title', help_text = "It's not used, it's only referential.")
@@ -15,3 +16,5 @@ class About(models.Model):
 
     def __str__(self):
         return self.title
+
+auditlog.register(About)

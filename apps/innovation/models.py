@@ -1,6 +1,7 @@
 from django.db import models
 from apps.core.models import RegistryInstitution, PatentType
 from django.utils.timezone import now
+from auditlog.registry import auditlog
 
 class Patent(models.Model):
     title = models.CharField(max_length = 300, verbose_name = 'Title')
@@ -23,3 +24,5 @@ class Patent(models.Model):
 
     def __str__(self):
         return self.title
+
+auditlog.register(Patent)

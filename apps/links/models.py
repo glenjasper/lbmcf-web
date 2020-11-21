@@ -1,4 +1,5 @@
 from django.db import models
+from auditlog.registry import auditlog
 
 class Link(models.Model):
     name = models.CharField(max_length = 150, verbose_name = 'Name')
@@ -16,3 +17,5 @@ class Link(models.Model):
 
     def __str__(self):
         return self.name
+
+auditlog.register(Link)

@@ -1,5 +1,6 @@
 from django.db import models
 from ckeditor.fields import RichTextField
+from auditlog.registry import auditlog
 
 class Legal(models.Model):
     title = models.CharField(max_length = 200, verbose_name = 'Title')
@@ -17,3 +18,5 @@ class Legal(models.Model):
 
     def __str__(self):
         return self.title
+
+auditlog.register(Legal)

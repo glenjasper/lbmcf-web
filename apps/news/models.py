@@ -1,4 +1,5 @@
 from django.db import models
+from auditlog.registry import auditlog
 
 class News(models.Model):
     title = models.CharField(max_length = 50, verbose_name = 'Title')
@@ -33,3 +34,6 @@ class EventPhoto(models.Model):
 
     # def __str__(self):
     #    return self.photo
+
+auditlog.register(News)
+auditlog.register(EventPhoto)
