@@ -1,6 +1,6 @@
 {% extends 'base/base.html' %}
 {% load static %}
-{% block title %}Login | {{ block.super }}{% endblock %}
+{% block title %}Log In | {{ block.super }}{% endblock %}
 {% block cssplus %}<style>#mainNav {background-color: #212529;}</style>{% endblock %}
 {% block header %}{% endblock %}
 
@@ -14,7 +14,7 @@
                     <form action="" method="post">
                         {% csrf_token %}
                         <div class="text-center">
-                            <h3 class="text-uppercase mb-4 mt-5">Iniciar sessão</h3>
+                            <h3 class="text-uppercase mb-4 mt-5">Log In</h3>
                         </div>
                         <p>
                             <input type="text" name="username" autofocus maxlength="254" required id="id_username" class="form-control" placeholder="User"/>
@@ -23,24 +23,23 @@
                             <input type="password" name="password" required id="id_password" class="form-control" placeholder="Password"/>
                         </p>
                         <p>
-                            <input type="submit" class="btn btn-primary btn-block col-md-4 mx-auto" value="Acesso">
+                            <input type="submit" class="btn btn-primary btn-block col-md-5 mx-auto" value="Log In">
                         </p>
                         {% if form.non_field_errors %}
                             <p style="color:red;">
-                                Nome de usuário ou senha incorretos, tente novamente.
+                                Incorrect username or password, try again.
                             </p>
                         {% endif %}
                     </form>
                     <p>
-                        <!--Forgot your password?, can be restored from-->
-                        Se você esqueceu sua senha?, pode recuperá-a desde
+                        Forgot your password?, You can restore it from
                         <a href="{% url 'password_reset' %}">
-                            <!--here-->aqui
+                            here
                         </a>
                     </p>
                     {% if 'register' in request.GET %}
                         <p style="color:green;">
-                            Usuário registrado corretamente, pode-se logar.
+                            User correctly registered, you can log in.
                         </p>
                     {% endif %}
                 </div>

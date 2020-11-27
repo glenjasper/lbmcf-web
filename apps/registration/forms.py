@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 from .models import Profile
 
 class UserCreationFormWithEmail(UserCreationForm):
-    email = forms.EmailField(required = True, help_text = 'Required, 254 characters maximum')
+    email = forms.EmailField(required = True, help_text = 'Required. 254 characters maximum.')
 
     class Meta:
         model = User
@@ -13,7 +13,7 @@ class UserCreationFormWithEmail(UserCreationForm):
     def clean_email(self):
         email = self.cleaned_data.get('email')
         if User.objects.filter(email = email).exists():
-            raise forms.ValidationError('The e-mail is already registered')
+            raise forms.ValidationError('The e-mail is already registered.')
         return email
 
 class ProfileForm(forms.ModelForm):
@@ -27,7 +27,7 @@ class ProfileForm(forms.ModelForm):
         }
 
 class EmailForm(forms.ModelForm):
-    email = forms.EmailField(required = True, help_text = 'Required, 254 characters maximum')
+    email = forms.EmailField(required = True, help_text = 'Required. 254 characters maximum.')
 
     class Meta:
         model = User
@@ -37,5 +37,5 @@ class EmailForm(forms.ModelForm):
         email = self.cleaned_data.get("email")
         if 'email' in self.changed_data:
             if User.objects.filter(email = email).exists():
-                raise forms.ValidationError('The e-mail is already registered')
+                raise forms.ValidationError('The e-mail is already registered.')
         return email

@@ -406,21 +406,9 @@ ol.carousel-indicators li.active {
 /*----------------------
 10. More
 ----------------------*/
-
-.div-link {
-    display: table-cell;
-    text-align: center;
-    vertical-align: middle;
-}
-
-.img-link1 {
+.img-link {
     height: 42px;
     border: 0;
-}
-
-.img-link2 {
-    height: 34px;
-    border: none;
 }
 
 .footer-bottom {
@@ -785,8 +773,18 @@ Files
 /*--------------------------------------------------------------
 # Bootstrap-grid Update
 --------------------------------------------------------------*/
-.col-lg-4_5 {
-    -ms-flex: 0 0 37.483333%;
-    flex: 0 0 37.483333%;
-    max-width: 37.483333%;
-}
+.col-md-4_5 {
+    position: relative;
+    width: 100%;
+    padding-right: 15px;
+    padding-left: 15px;
+  }
+  
+  @media (min-width: 768px) {
+    .col-md-4_5 {
+      -ms-flex: 0 0 37.499999%;
+      flex: 0 0 37.499999%;
+      max-width: 37.499999%;
+    }
+  }
+  

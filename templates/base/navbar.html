@@ -20,41 +20,35 @@
                     <li class="nav-item dropdown">
                         <!--<a class="nav-link js-scroll-trigger dropdown-toggle" href="#" id="navbarDropdownResearch" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">-->
                         <a class="nav-link js-scroll-trigger" {% if request.path == '/' %}href="#section_research"{% else %}href="{% url 'core_app:url_home' %}#section_research"{% endif %} id="navbarDropdownResearch" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Pesquisa
+                            Research
                         </a>
                         <div class="dropdown-menu dropdown-menu-right dropdown-content" aria-labelledby="navbarDropdownResearch">
-                            <a class="dropdown-item" href="{% url 'research_app:url_projects' %}">Projetos</a>
-                            <a class="dropdown-item" href="{% url 'research_app:url_protocols' %}">Protocolos</a>
-                            <a class="dropdown-item" href="{% url 'research_app:url_files' %}">Arquivos</a>
+                            <a class="dropdown-item" href="{% url 'research_app:url_projects' %}">Projects</a>
+                            <a class="dropdown-item" href="{% url 'research_app:url_protocols' %}">Protocols</a>
+                            <a class="dropdown-item" href="{% url 'research_app:url_files' %}">Files</a>
                         </div>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link js-scroll-trigger" {% if request.path == '/' %}href="#section_team"{% else %}href="{% url 'core_app:url_home' %}#section_team"{% endif %}>Equipe</a>
+                        <a class="nav-link js-scroll-trigger" {% if request.path == '/' %}href="#section_team"{% else %}href="{% url 'core_app:url_home' %}#section_team"{% endif %}>Members</a>
                     </li>
                     <li class="nav-item">
-                        <!--{% if request.path|slice:':14' == '/publications/' %}active{% endif %}-->
-                        <a class="nav-link js-scroll-trigger" {% if request.path == '/' %}href="#section_paper"{% else %}href="{% url 'core_app:url_home' %}#section_paper"{% endif %}>Publicações</a>
+                        <a class="nav-link js-scroll-trigger" {% if request.path == '/' %}href="#section_paper"{% else %}href="{% url 'core_app:url_home' %}#section_paper"{% endif %}>Publications</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link js-scroll-trigger" {% if request.path == '/' %}href="#portfolio"{% else %}href="{% url 'core_app:url_home' %}#portfolio"{% endif %}>Parcerias</a>
+                        <a class="nav-link js-scroll-trigger" {% if request.path == '/' %}href="#portfolio"{% else %}href="{% url 'core_app:url_home' %}#portfolio"{% endif %}>Partnerships</a>
                     </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link js-scroll-trigger" {% if request.path == '/' %}href="#section_innovation"{% else %}href="{% url 'core_app:url_home' %}#section_innovation"{% endif %} id="navbarDropdownInnovation" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Inovação
+                            Innovation
                         </a>
                         <div class="dropdown-menu dropdown-menu-right dropdown-content" aria-labelledby="navbarDropdownInnovation">
-                            <a class="dropdown-item" href="{% url 'innovation_app:url_patents' %}">Patentes</a>
+                            <a class="dropdown-item" href="{% url 'innovation_app:url_patents' %}">Patents</a>
                         </div>
                     </li>
-                    <!--
-                    <li class="nav-item">
-                        <a class="nav-link js-scroll-trigger" href="{% url 'contact_app:url_contact' %}">Contato</a>
-                    </li>
-                    -->
                     {% if request.user.is_authenticated %}
                         <!--
                         <li class="nav-item">
-                            <a class="nav-link js-scroll-trigger" href="{% url 'messenger_app:url_messenger_list' %}">Mensagens</a>
+                            <a class="nav-link js-scroll-trigger" href="{% url 'messenger_app:url_messenger_list' %}">Chat</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link js-scroll-trigger" href="{% url 'profiles_app:url_profile_list' %}">Profiles</a>
@@ -67,11 +61,13 @@
                             <a class="nav-link js-scroll-trigger" href="{% url 'logout' %}">Logout</a>
                         </li>
                     {% else %}
+                        <!--
                         <li class="nav-item">
-                            <a class="nav-link js-scroll-trigger" href="{% url 'registration_app:url_signup' %}">Register</a>
+                            <a class="nav-link js-scroll-trigger" href="{% url 'registration_app:url_signup' %}">Sign Up</a>
                         </li>
+                        -->
                         <li class="nav-item">
-                            <a class="nav-link js-scroll-trigger" href="{% url 'login' %}">Login</a>
+                            <a class="nav-link js-scroll-trigger" href="{% url 'login' %}">Log In</a>
                         </li>
                     {% endif %}
                 </ul>

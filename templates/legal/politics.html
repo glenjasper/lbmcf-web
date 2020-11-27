@@ -1,6 +1,6 @@
 {% extends 'base/base.html' %}
 {% load static %}
-{% block title %}Security Politics | {{ block.super }}{% endblock %}
+{% block title %}Security Policy | {{ block.super }}{% endblock %}
 {% block cssplus %}<style>#mainNav {background-color: #212529;}</style>{% endblock %}
 {% block header %}{% endblock %}
 
@@ -23,7 +23,7 @@
                             </h2>
                             <div class="text-right">
                                 <p class="text-uppercase g-font-size-14--xs g-font-weight--700 g-color--primary g-letter-spacing--2 g-margin-b-20--xs">
-                                    {{ context_legal.updated|date:"SHORT_DATE_FORMAT" }}
+                                    {{ context_legal.updated|date:"DATE_FORMAT" }}
                                 </p>
                             </div>
                             <p class="g-font-size-15--md">

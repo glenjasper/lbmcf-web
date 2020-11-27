@@ -16,7 +16,7 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="text-center">
-                                    <h3 class="text-uppercase mb-4 mt-5 mx-auto">Perfil</h3>
+                                    <h3 class="text-uppercase mb-4 mt-5 mx-auto">Profile</h3>
                                 </div>
                             </div>
                         </div>
@@ -26,7 +26,7 @@
                                 {% if request.user.profile.avatar %}
                                     <img src="{{request.user.profile.avatar.url}}" class="img-fluid">
                                     <p class="mt-1 text-center">
-                                        ¿Apagar? <input type="checkbox" id="avatar-clear" name="avatar-clear"/>
+                                        Delete? <input type="checkbox" id="avatar-clear" name="avatar-clear"/>
                                     </p>
                                 {% else %}
                                     <img src="{% static 'img/no-avatar.png' %}" class="img-fluid">
@@ -41,7 +41,7 @@
                                 -->
                                 <div class="row mt-3">
                                     <div class="col-md-2">
-                                        Nome:
+                                        Name:
                                     </div>
                                     <div>
                                         <b>{{ request.user.first_name }} {{ request.user.last_name }}</b>
@@ -49,7 +49,7 @@
                                 </div>
                                 <div class="row mt-1">
                                     <div class="col-md-2">
-                                        Usuário:
+                                        User:
                                     </div>
                                     <div>
                                         <b>{{ request.user }}</b>
@@ -65,12 +65,12 @@
                                 </div>
                                 <div class="row col-md-9 mt-3">
                                     <div>
-                                        Se você quiser editar seu email clique <a href="{% url 'registration_app:url_profile_email' %}">aqui</a>.
+                                        If you want to edit your email click <a href="{% url 'registration_app:url_profile_email' %}">here</a>.
                                     </div>
                                 </div>
                                 <div class="row col-md-9 mt-1">
                                     <div>
-                                        E se você quiser mudar sua senha clique <a href="{% url 'password_change' %}">aqui</a>.
+                                        If you want to change your password click <a href="{% url 'password_change' %}">here</a>.
                                     </div>
                                 </div>
                             </div>
@@ -78,7 +78,7 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="text-center">
-                                    <input type="submit" class="btn btn-primary btn-block mt-1 col-md-2 mx-auto" value="Actualizar">
+                                    <input type="submit" class="btn btn-primary btn-block mt-1 col-md-2 mx-auto" value="Update">
                                 </div>
                             </div>
                         </div>

@@ -10,7 +10,7 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="text-center g-padding-y-80--top">
-                        <h2 class="section-heading text-uppercase">Patentes</h2>
+                        <h2 class="section-heading text-uppercase">Patents</h2>
                     </div>
                 </div>
             </div>
@@ -20,7 +20,7 @@
                         <div class="col-sm-12">
                             <div class="g-margin-t-10--md g-margin-b-20--xs">
                                 <p class="text-uppercase g-font-size-14--xs g-font-weight--700 g-color--primary g-letter-spacing--2 g-margin-b-20--xs">
-                                    {{ patent.deposit_date|date:"SHORT_DATE_FORMAT" }}
+                                    {{ patent.deposit_date|date:"DATE_FORMAT" }}
                                 </p>
                                 <h2 class="g-font-size-30--md">
                                     {{ patent.title }}

@@ -1,6 +1,6 @@
 {% extends 'base/base.html' %}
 {% load static %}
-{% block title %}Update Politics | {{ block.super }}{% endblock %}
+{% block title %}Update Policy | {{ block.super }}{% endblock %}
 {% block cssplus %}<style>#mainNav {background-color: #212529;}</style>{% endblock %}
 {% block header %}{% endblock %}
 
@@ -11,7 +11,7 @@
                 <div class="col-lg-12">
                     <div class="text-center g-padding-y-80--top">
                         <h2 class="section-heading text-uppercase">Legal Warning</h2>
-                        <h4 class="section-subheading-alt text-muted">Atualização</h4>
+                        <h4 class="section-subheading-alt text-muted">Update</h4>
                     </div>
                 </div>
             </div>
@@ -20,14 +20,14 @@
                     <div>
                         {% if 'ok' in request.GET %}
                             <p style="color:green;">
-                                Politica atualizada corretamente
+                                Policy updated correctly
                             </p>
                         {% endif %}
                         <form action="" method="post">
                             {% csrf_token %}
                             {{ form.as_p }}
                             <div class="col-md-3 mx-auto text-center">
-                                <input type="submit" class="btn btn-primary btn-block" value="Atualizar"/>
+                                <input type="submit" class="btn btn-primary btn-block" value="Update"/>
                             </div>
                         </form>
                     </div>
